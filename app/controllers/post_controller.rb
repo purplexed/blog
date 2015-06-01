@@ -4,9 +4,14 @@ class PostController < ApplicationController
 	end
 
 	#GET
-	def new; end
+	def new
+		@post = Post.new
+		@post.save
+	end
 	#POST
-	def create; end
+	def create
+  		@post = Post.create
+	end
 
 	#GET
 	def edit; end
