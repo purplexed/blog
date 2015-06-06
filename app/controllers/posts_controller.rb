@@ -12,18 +12,18 @@ class PostsController < ApplicationController
 	def create
   		@post = Post.new(post_params)
  		
- 		#fix it
   		if @post.save
 			flash[:notice] = "Post created"
 			redirect_to @post
   		else
-  			flash[:notice] = "Post created"
   			redirect_to @post
   		end
 	end
  
 	def show
-		@Post = Post.find(:title, :body)
+
+		@post = Post.find(params[:id])
+		
 	end
  
 	#GET
