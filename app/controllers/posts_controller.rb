@@ -1,53 +1,53 @@
 class PostsController < ApplicationController
-	def post_params
-      params.require(:post).permit(:title, :body)
-    end
+	before_action :find_post, except: [:index, :new, :create]
+
+	def show; end
+	def edit; end
 
 	def index
-		@posts = Post.all
+    @posts = Post.all
 	end
  
 	#GET
 	def new
-		@post = Post.new
+    @post = Post.new
 	end
  
 	#POST
 	def create
-  		@post = Post.new(post_params)
- 		
-  		if @post.save
-			flash[:notice] = "Post created"
-			redirect_to @post
-  		else
-  			redirect_to @post
-  		end
+  	@post = Post.new(post_params)
+   	
+   	if @post.save
+  		redirect_to @post, notice: 'Post successfully created'
+  	else
+  		render :new
+  	end
 	end
- 
-	def show
-		@post = Post.find(params[:id])
-	end
- 
-	#GET
-	def edit
-		@post = Post.find(params[:id])
-	end
-	#PATCH|PUT
-	def update
-		@post = Post.find(params[:id])
 
-		if @post.update(post_params)
+	#PATCH|PUT
+  def update
+	 	if @post.update_attributes(post_params)
 			redirect_to @post
 		else
-			render 'edit'
+			render :edit
 		end
 	end
 
 	def destroy
-		@post = Post.find(params[:id])
-		@post.destroy
+		if @post.destroy
+    	redirect_to posts_path
+   	else
+   		redirect_to posts_path, alert: 'Couldnt delete that post'
+  	end
+	end
 
-		redirect_to posts_path
+	protected
+
+	def find_post
+		@post = Post.find(params[:id])
 	end
  
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
 end
