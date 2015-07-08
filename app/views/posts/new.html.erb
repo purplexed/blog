@@ -2,11 +2,11 @@
 	<% if @post.errors.any? %>
 		<%= @post.errors.full_messages %><br />
 	<% end %>
-  	<%= f.label :title %><br/>
-  	<%= f.text_field :title %>
+  	<tr><%= f.label :title %></tr>
+  	<tr><%= f.text_field :title %></tr>
 
-  	<%= f.label :body %><br />
-  	<%= f.text_area :body %>
+  	<tr><%= f.label :body %></tr>
+  	<tr><%= f.text_area :body %></tr>
 
   <div class="actions">
   	<%= f.submit %>
