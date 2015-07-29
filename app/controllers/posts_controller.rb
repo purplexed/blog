@@ -1,11 +1,16 @@
 class PostsController < ApplicationController
+	before_action :authenticate_user!, except: [:index]
 	before_action :find_post, except: [:index, :new, :create]
 
 	def show; end
 	def edit; end
 
 	def index
-    @posts = Post.all
+		#if user_signed_in?
+    	@posts = Post.all
+    # else
+    # 	redirect_to new_user_session_path
+    # end
 	end
  
 	#GET

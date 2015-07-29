@@ -16,6 +16,11 @@
 		<%= alert	%>
 	<% end %>
 
+	<% if user_signed_in? %>
+
+	<p>Feeling like writing something today? <%= current_user.name %> - <%= link_to "Sign_out", destroy_user_session_path, :method => 'delete' %></p>
+	<% end %>
+
 <%= yield %>
 
 </body>
